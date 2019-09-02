@@ -12,7 +12,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use(logger('div'));
 app.use('/', routing);
-
+app.get('/',(req,res)=>{
+  res.send('Talalalallalalal')
+})
 
 //error handler
 app.use((err, req, res, next) => {

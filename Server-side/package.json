@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon ./bin/runing-server"
+    "start": "node ./bin/runing-server"
   },
   "author": "Tal Omari",
   "license": "ISC",
