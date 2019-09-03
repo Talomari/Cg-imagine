@@ -31,7 +31,8 @@ module.exports = Login = (req, res) => {
                     res.send({
                         status: 201,
                         token,
-                        user: response
+                        user: response,
+                        message: 'Loggedin successfully'
                     })
                 }
                 else {

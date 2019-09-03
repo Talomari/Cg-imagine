@@ -12,9 +12,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use(logger('div'));
 app.use('/', routing);
-app.get('/',(req,res)=>{
-  res.send('Talalalallalalal')
-})
+// app.get('*', (req, res) => {
+//   res.sendFile(path.join(__dirname + '/build/index.html'));
+// })
 
 //error handler
 app.use((err, req, res, next) => {

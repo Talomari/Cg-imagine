@@ -18,13 +18,13 @@ module.exports = signUp = (req, res) => {
             }).status(209)
         }
         else {
-            bcrypt.genSalt((err,salt)=>{
+            bcrypt.genSalt((err, salt) => {
                 if (err) {
                     console.log(err)
                     res.sendStatus(500)
                     return
                 }
-                bcrypt.hash(password,salt,(err,hash)=>{
+                bcrypt.hash(password, salt, (err, hash) => {
                     if (err) {
                         console.log(err)
                         res.sendStatus(500)
@@ -32,20 +32,21 @@ module.exports = signUp = (req, res) => {
                     }
                     const user = new users({
                         email,
-                        password:hash,
+                        password: hash,
                         userName
                     })
-                    user.save((err,data)=>{
+                    user.save((err, data) => {
                         if (err) {
                             console.log(err)
                             res.sendStatus(500)
                             return
                         }
-                        const token = jwt.sign({userId:data._id}, secretKey);
+                        const token = jwt.sign({ userId: data._id }, secretKey);
                         res.send({
-                            status:201,
+                            status: 201,
                             token,
-                            user:data
+                            user: data,
+                            message: 'Signed up successfully'
                         })
 
                     })
