@@ -1,32 +1,36 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { setUser } from '../../Action'
+import { setUser ,isLoggedIn} from '../../Action'
 import Axios from '../../api'
+import "../../global-css/css/styles.min.css"
 
 
 
- class SignUp extends Component {
-     constructor(props) {
-         super(props)
-     
-         this.state = {
-              userName:'',
-              email:'',
-              password:''
-         }
-     }
-     submit = () => {
-        const { userName,email, password } = this.state
-        if (!!userName &&!!email && !!password) {
-            Axios.post('/auth/signup', {userName, email, password })
+class SignUp extends Component {
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            userName: '',
+            email: '',
+            password: ''
+        }
+    }
+    submit = (Event) => {
+        Event.preventDefault()
+
+        const { userName, email, password } = this.state
+        if (!!userName && !!email && !!password) {
+            Axios.post('/auth/signup', { userName, email, password })
                 .then(({ data }) => {
                     console.log(data)
                     alert(data.message)
                     if (!!data.token) {
                         this.props.setUser(data)
-                        // window.location.replace('/home')
+                        this.props.isLoggedIn(true)
+                        window.location.replace('/addTask')
                     }
-                    
+
                 }).catch(err => {
                     console.log(err);
                     alert('Error occured')
@@ -38,14 +42,19 @@ import Axios from '../../api'
     }
 
     render() {
-        
-        return (
-            <div>
-                <input type='name' placeholder='user name ' onChange={(userName)=>this.setState({userName:userName.target.value})} />
-                <input type='email' placeholder='email' onChange={(email)=>this.setState({email:email.target.value})}/>
-                <input type='password' placeholder='password ' onChange={(password)=>this.setState({password:password.target.value})}/>
 
-                <button onClick={this.submit}></button>
+        return (
+            <div className="login-card">
+                <img className="profile-img-card" src={require("../../assets/img/logo.png")} />
+                <form className="form-signin" onSubmit={this.submit}>
+                    <span className="reauth-email">
+                    </span>
+                    <input className="form-control" type="text" id="inputEmail" required="" placeholder="User Name" autoFocus="" onChange={(userName) => this.setState({ userName: userName.target.value })} />
+                    <input className="form-control" type="email" id="inputEmail" required="" placeholder="Email" autoFocus="" onChange={(email) => this.setState({ email: email.target.value })} />
+                    <input
+                        className="form-control" type="password" id="inputPassword" required="" placeholder="Password" onChange={(password) => this.setState({ password: password.target.value })} />
+                    <div className="checkbox"></div>
+                    <button className="btn btn-primary btn-block btn-lg btn-signin" type="submit" onClick={this.submit} >Sign Up</button></form>
             </div>
         )
     }
@@ -53,8 +62,9 @@ import Axios from '../../api'
 
 
 const mapDispatchToProps = {
-    setUser
+    setUser,
+    isLoggedIn
 }
-export default connect(null, mapDispatchToProps) (SignUp);
+export default connect(null, mapDispatchToProps)(SignUp);
 
 

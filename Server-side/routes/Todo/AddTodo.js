@@ -2,12 +2,11 @@ const { todoList } = require('../../Database/todo');
 
 
 module.exports = AddTask = (req, res) => {
-    const { todo, date, time } = req.body;
+    const { todo, date } = req.body;
     const { userId } = req.params;
+    console.log(req.body)
     const saveTodo = new todoList({
-        todo,
-        date,
-        time,
+       ...req.body,
         userId
     })
     saveTodo.save((err, data) => {

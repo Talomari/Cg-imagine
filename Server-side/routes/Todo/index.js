@@ -12,10 +12,10 @@ const IsCompletedTask = require('./IsCompletedTask');
 router.post('/add/:userId', isAuthurized, AddTask);
 router.post('/update/:taskId', isAuthurized, UpdateTask);
 router.get('/delete/:deletedId', isAuthurized, DeleteTask);
-router.get('/all', isAuthurized, FetchAll);
-router.get('/fetch/completed', isAuthurized, FetchCompleted);
-router.get('/fetch/notcompleted', isAuthurized, FetchNotCompleted);
-router.get('/iscompleted', isAuthurized, IsCompletedTask);
+router.get('/all/:userId', isAuthurized, FetchAll);
+router.get('/fetch/completed/:userId', isAuthurized, FetchCompleted);
+router.get('/fetch/notcompleted/:userId', isAuthurized, FetchNotCompleted);
+router.post('/iscompleted/:taskId', isAuthurized, IsCompletedTask);
 
 
 module.exports = router;
