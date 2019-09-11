@@ -7,14 +7,16 @@ const db = require('./Database');
 const routing = require('./routes');
 
 // view engine setup 
+app.use(express.static(path.join(__dirname, 'build')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use(logger('div'));
 app.use('/', routing);
-// app.get('*', (req, res) => {
-//   res.sendFile(path.join(__dirname + '/build/index.html'));
-// })
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname + '/build/index.html'));
+})
 
 //error handler
 app.use((err, req, res, next) => {
